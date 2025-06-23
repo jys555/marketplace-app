@@ -11,7 +11,7 @@ const LANGS = {
     yandex_buy: "Yandex orqali sotib olish",
     empty_cart: "Savat bo'sh",
     remove: "Chiqarish",
-    // ...
+    cart_item: "ta tovar",
   },
   ru: {
     home: "Главная",
@@ -25,7 +25,7 @@ const LANGS = {
     yandex_buy: "Купить через Яндекс",
     empty_cart: "Корзина пуста",
     remove: "Удалить",
-    // ...
+    cart_item: "товар(ов)",
   }
 };
 let currentLang = "uz";
