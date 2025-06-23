@@ -3,34 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Shop Mini Marketplace</title>
+  <title>Marketplace Mini App</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main>
-    <!-- Banner -->
-    <section id="banner-section">
-      <div class="banner-carousel">
-        <div class="banner active">
-          <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Banner 1">
-        </div>
-        <div class="banner">
-          <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80" alt="Banner 2">
-        </div>
-      </div>
-    </section>
-    <!-- Mahsulotlar grid -->
-    <section>
-      <div id="product-grid"></div>
-    </section>
-  </main>
-
+  <div id="lang-switch"></div>
+  <header id="header"></header>
+  <main id="main"></main>
   <nav class="bottom-nav">
-    <button id="nav-home" class="active"><span>🏠</span><span>Bosh sahifa</span></button>
-    <button id="nav-category"><span>📂</span><span>Kategoriya</span></button>
-    <button id="nav-favorites"><span>❤️</span><span>Sevimlilar</span></button>
+    <button id="nav-home" class="nav-btn active"><span>🏠</span><span class="nav-lbl">Bosh sahifa</span></button>
+    <button id="nav-category" class="nav-btn"><span>📂</span><span class="nav-lbl">Kategoriyalar</span></button>
+    <button id="nav-favorites" class="nav-btn"><span>❤️</span><span class="nav-lbl">Sevimlilar</span></button>
+    <button id="nav-cart" class="nav-btn"><span>🛒</span><span class="nav-lbl">Savat</span><span id="cart-badge"></span></button>
+    <button id="nav-profile" class="nav-btn"><span>👤</span><span class="nav-lbl">Profil</span></button>
   </nav>
-
+  <div id="modal-root"></div>
+  <script src="lang.js"></script>
+  <script src="products.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
