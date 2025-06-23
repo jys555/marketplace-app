@@ -1,7 +1,7 @@
 // --- Global state ---
 let favs = [];
 let cart = [];
-let page = "home"; // home, category, favorites, cart, product, etc
+let page = "home"; // home, category, favorites, cart, product
 let currentProductId = null;
 
 // --- Helpers ---
@@ -111,7 +111,6 @@ function renderHome() {
     <div style="padding:13px 10px 0 10px;">${renderBanners()}</div>
     <div class="product-grid">${products.map((p,i) => productCardHTML(p,i)).join("")}</div>
   `;
-  // Carousel in each card
   products.forEach((p,i) => setupCardCarousel(p,i));
 }
 function productCardHTML(p, idx) {
@@ -184,7 +183,7 @@ function renderCart() {
   renderHeader({title:t('cart'), showBack:true});
   const cartItems = products.filter(p=>cart.includes(p.id));
   document.getElementById("main").innerHTML = `
-    <div class="cart-page-header">${t('cart')} <span style="font-weight:400;font-size:0.97em;margin-left:5px;">${cartItems.length} ${t('cart_item')||'ta tovar'}</span></div>
+    <div class="cart-page-header">${t('cart')} <span style="font-weight:400;font-size:0.97em;margin-left:5px;">${cartItems.length} ${t('cart_item')}</span></div>
     <div class="cart-list">
       ${cartItems.length?cartItems.map(cartCardHTML).join(""):`<div style="padding:18px 0 0 18px;color:#888;">${t('empty_cart')}</div>`}
     </div>
@@ -208,7 +207,6 @@ function cartCardHTML(p) {
   `;
 }
 function cartBottomBtns(cartItems) {
-  // Faqat misol uchun bir mahsulot tanlanadi
   const first = cartItems[0];
   return `
     <div class="cart-bottom-btns">
@@ -331,7 +329,5 @@ document.getElementById("nav-home").onclick = ()=>{page="home";reRender();};
 document.getElementById("nav-category").onclick = ()=>{page="category";reRender();};
 document.getElementById("nav-favorites").onclick = ()=>{page="favorites";reRender();};
 document.getElementById("nav-cart").onclick = ()=>{page="cart";reRender();};
-document.getElementById("nav-profile").onclick = ()=>{alert("Profil: demo");};
 
-// --- Initial Render ---
 reRender();
