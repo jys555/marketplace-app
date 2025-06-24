@@ -22,14 +22,61 @@ header { height:46px; display:flex; align-items:center; font-size:1.18em; font-w
 .cat-name { margin-top:0; text-align:center; color:#222; font-weight:500;}
 .product-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:12px 8px 0 8px;}
 .product-card { background:#fff; border-radius:14px; box-shadow:0 1px 6px rgba(0,0,0,0.06); overflow:hidden; position:relative; margin-bottom:0; display:flex; flex-direction:column; align-items:stretch; transition:box-shadow 0.15s; cursor:pointer;}
-.product-img-carousel { width:100%; height:140px; position:relative; overflow:hidden; background:#eee; display:flex; align-items:center; justify-content:center;}
-.product-img-carousel img { width:100%; height:100%; object-fit:cover; border-bottom:1px solid #f0f0f0; border-radius:0;}
-.carousel-arrow { position:absolute; top:50%; transform:translateY(-50%); background:#fff; border:none; font-size:1.17em; border-radius:50%; width:26px; height:26px; box-shadow:0 1px 5px #ccc; color:#ff3256; opacity:0.8; cursor:pointer; z-index:2;}
-.carousel-arrow.left { left:6px; }
-.carousel-arrow.right { right:6px; }
-.carousel-dots { position:absolute; left:50%; bottom:7px; transform:translateX(-50%); display:flex; gap:5px;}
-.carousel-dot { width:7px; height:7px; background:#fff; border-radius:50%; border:1.2px solid #ff3256; opacity:0.7;}
-.carousel-dot.active { background:#ff3256; border-color:#ff3256; opacity:1;}
+.product-img-carousel {
+  width: 100%;
+  aspect-ratio: 3/4;
+  background: #f4f6fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.product-img-carousel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  background: #fff;
+  border: none;
+  font-size: 1.22em;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  box-shadow: 0 1px 5px #ccc;
+  color: #ff3256;
+  opacity: 0.8;
+  cursor: pointer;
+  z-index: 2;
+  transform: translateY(-50%);
+}
+.carousel-arrow.left { left: 10px; }
+.carousel-arrow.right { right: 10px; }
+.carousel-dots {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+}
+.carousel-dot {
+  width: 7px; height: 7px;
+  background: #fff;
+  border-radius: 50%;
+  border: 1.2px solid #ff3256;
+  opacity: 0.7;
+  cursor: pointer;
+}
+.carousel-dot.active {
+  background: #ff3256;
+  border-color: #ff3256;
+  opacity: 1;
+}
 .badge-like { position:absolute; top:7px; right:9px; background:none; border:none; font-size:1.2em; color:#ff3256; cursor:pointer; z-index:3;}
 .badge-discount { position:absolute; bottom:7px; left:9px; background:#ff3256; color:#fff; font-size:0.97em; font-weight:500; padding:2px 8px; border-radius:7px; z-index:2; letter-spacing:0.5px;}
 .cart-add-btn { position:absolute; bottom:7px; right:14px; background:#ffe900; border:none; border-radius:50%; width:36px; height:36px; box-shadow:0 2px 8px #ffed74b2; display:flex; align-items:center; justify-content:center; font-size:1.24em; color:#222; cursor:pointer; z-index:2;}
