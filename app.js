@@ -68,17 +68,23 @@ function renderHome() {
     document.querySelectorAll('.banner').forEach((el,i)=>el.classList.toggle('active',i===idx));
   },3500);
 }
-function productCardHTML(p) {
+function productCardHTML(p, idx) {
+  const disc = calcDiscount(p);
   return `
-    <div class="product-card">
-      <div class="product-img-carousel">
+    <div class="product-card" data-pid="${p.id}">
+      <div class="product-img-carousel" id="carousel-${p.id}">
+        <button class="carousel-arrow left" style="display:none">&lt;</button>
         <img src="${p.images[0]}" alt="${p.name}">
+        <button class="carousel-arrow right"${p.images.length<=1?' style="display:none"':''}>&gt;</button>
+        <div class="carousel-dots">
+          ${p.images.map((_,i) => `<span class="carousel-dot${i===0?" active":""}"></span>`).join("")}
+        </div>
       </div>
-      <button class="badge-like" onclick="event.stopPropagation()">🤍</button>
-      ${p.old_price?`<div class="badge-discount">-${Math.round(100-(p.price*100)/p.old_price)}%</div>`:""}
-      <button class="cart-add-btn" onclick="event.stopPropagation()">&#128722;</button>
-      <div class="product-info">
-        <div class="product-name">${p.name}</div>
+      <button class="badge-like" onclick="event.stopPropagation();toggleFav(${p.id});">${favs.includes(p.id) ? "❤️" : "🤍"}</button>
+      ${disc?`<div class="badge-discount">-${disc}%</div>`:""}
+      <button class="cart-add-btn" onclick="event.stopPropagation();addToCart(${p.id});">&#128722;</button>
+      <div class="product-info" onclick="openProduct(${p.id})" style="cursor:pointer">
+        <div class="product-name">${getProductName(p)}</div>
         <div class="product-price">${p.price.toLocaleString('uz-UZ')} so'm</div>
       </div>
     </div>
@@ -122,6 +128,26 @@ function setActive(btn) {
   document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));
   btn.classList.add("active");
 }
-
+// Carousel funksiyasi (kartochka har birida)
+function setupCardCarousel(p, idx) {
+  let cidx = 0;
+  const card = document.querySelectorAll(".product-card")[idx];
+  const carouselDiv = card.querySelector(".product-img-carousel");
+  const img = carouselDiv.querySelector("img");
+  const leftBtn = carouselDiv.querySelector(".carousel-arrow.left");
+  const rightBtn = carouselDiv.querySelector(".carousel-arrow.right");
+  const dots = carouselDiv.querySelectorAll(".carousel-dot");
+  function update() {
+    img.src = p.images[cidx];
+    leftBtn.style.display = cidx === 0 ? "none" : "";
+    rightBtn.style.display = cidx === p.images.length - 1 ? "none" : "";
+    dots.forEach((dot, i) => dot.classList.toggle("active", i === cidx));
+  }
+  leftBtn.onclick = (ev) => { ev.stopPropagation(); if (cidx > 0) { cidx--; update(); } };
+  rightBtn.onclick = (ev) => { ev.stopPropagation(); if (cidx < p.images.length - 1) { cidx++; update(); } };
+  dots.forEach((dot, i) => dot.onclick = (ev) => { ev.stopPropagation(); cidx = i; update(); });
+  // Kartochka bosilganda batafsil ochilsin
+  carouselDiv.onclick = (ev) => { if(ev.target===img) openProduct(p.id); };
+}
 // Boshlang'ich render
 renderHome();
