@@ -84,3 +84,4 @@ header { height:46px; display:flex; align-items:center; font-size:1.18em; font-w
 .product-info { padding:7px 10px 12px 10px; flex:1; display:flex; flex-direction:column; justify-content:flex-end;}
 .product-name { font-size:1em; font-weight:500; color:#20232a; margin-bottom:3px; min-height:2.5em; overflow:hidden; text-overflow:ellipsis; white-space:normal; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;}
 .product-price { color:#ff3256; font-size:1.06em; font-weight:bold; margin-bottom:0;}
+/* ...qolgan style yuqoridagidek... */
