@@ -1,23 +1,20 @@
 body { margin:0; padding:0; font-family:'Segoe UI', Arial, sans-serif; background:#f4f6fa; min-height:100vh;}
 #main { padding: 0 0 76px 0; min-height:100vh;}
 header { height:46px; display:flex; align-items:center; font-size:1.18em; font-weight:600; padding-left:12px; background:#fff; box-shadow:0 1px 4px #ececec; letter-spacing:0.2px;}
-#header .back-btn { border:none; background:none; font-size:1.4em; margin-right:10px; cursor:pointer; color:#222;}
 .bottom-nav { position:fixed; left:0; bottom:0; width:100vw; display:flex; background:#fff; box-shadow:0 -1px 8px rgba(0,0,0,0.07); border-top:1px solid #eee; z-index:100;}
 .bottom-nav .nav-btn { flex:1; border:none; background:none; display:flex; flex-direction:column; align-items:center; font-size:0.97em; color:#888; transition:color 0.2s; outline:none; gap:2px; position:relative; padding:7px 0 3px 0;}
 .bottom-nav .nav-btn.active .nav-ico { stroke:#2196f3; }
 .bottom-nav .nav-btn .nav-ico { width:28px; height:28px; display:block; stroke:#888;}
 #cart-badge { position:absolute; top:5px; right:20px; background:#ff3256; color:#fff; font-size:0.9em; min-width:18px; height:18px; border-radius:50%; display:none; align-items:center; justify-content:center; font-weight:bold;}
-.amazing-banner { border-radius:18px; overflow:hidden; position:relative; margin-bottom:12px; box-shadow:0 2px 12px rgba(255,50,86,0.12); border:2.5px solid #ff3256; background:#fff;}
+.amazing-banner { border-radius:18px; overflow:hidden; position:relative; margin:13px 10px 12px 10px; box-shadow:0 2px 12px rgba(255,50,86,0.12); border:2.5px solid #ff3256; background:#fff;}
 .amazing-banner img { width:100%; height:85px; object-fit:cover; display:block;}
 .amazing-title { position:absolute; left:18px; top:13px; color:#fff; font-size:1.17em; font-weight:bold; background:#ff3256eb; padding:4px 18px 4px 12px; border-radius:8px; letter-spacing:1px;}
-.banner-carousel { display:flex; gap:12px; overflow-x:auto;}
+.banner-carousel { display:flex; gap:12px; overflow-x:auto; margin:0 10px 0 10px;}
 .banner { min-width:92vw; max-width:92vw; height:92px; border-radius:16px; overflow:hidden; background:#fff; flex-shrink:0; opacity:0.65; transition:opacity 0.4s;}
 .banner.active { opacity:1; box-shadow:0 2px 8px rgba(0,0,0,0.09);}
 .banner img { width:100%; height:100%; object-fit:cover;}
-.section-title { margin:18px 0 12px 6px; font-size:1.18em; font-weight:600; color:#222; letter-spacing:.5px;}
-.cat-grid { display:grid; grid-template-columns:1fr 1fr; gap:13px; padding:8px 0 0 0;}
+.cat-grid { display:grid; grid-template-columns:1fr 1fr; gap:13px; padding:18px 8px 0 8px;}
 .cat-card { background:linear-gradient(120deg,#ffeb3b1a 0%,#f4f6fa 100%); border-radius:14px; box-shadow:0 1px 6px rgba(0,0,0,0.06); display:flex; flex-direction:column; align-items:center; padding:20px 0 14px 0; cursor:pointer; font-size:1.08em; border:2.5px solid #ffe90044; transition:box-shadow .15s, border .15s; gap:6px;}
-.cat-card:hover { box-shadow:0 2px 14px #ffe9002c; border:2.5px solid #ffd600;}
 .cat-emoji { font-size:2.2em; margin-bottom:4px;}
 .cat-name { margin-top:0; text-align:center; color:#222; font-weight:500;}
 .product-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:12px 8px 0 8px;}
@@ -77,11 +74,6 @@ header { height:46px; display:flex; align-items:center; font-size:1.18em; font-w
   border-color: #ff3256;
   opacity: 1;
 }
-.badge-like { position:absolute; top:7px; right:9px; background:none; border:none; font-size:1.2em; color:#ff3256; cursor:pointer; z-index:3;}
-.badge-discount { position:absolute; bottom:7px; left:9px; background:#ff3256; color:#fff; font-size:0.97em; font-weight:500; padding:2px 8px; border-radius:7px; z-index:2; letter-spacing:0.5px;}
-.cart-add-btn { position:absolute; bottom:7px; right:14px; background:#ffe900; border:none; border-radius:50%; width:36px; height:36px; box-shadow:0 2px 8px #ffed74b2; display:flex; align-items:center; justify-content:center; font-size:1.24em; color:#222; cursor:pointer; z-index:2;}
-.cart-add-btn:active { background:#ffd600;}
 .product-info { padding:7px 10px 12px 10px; flex:1; display:flex; flex-direction:column; justify-content:flex-end;}
 .product-name { font-size:1em; font-weight:500; color:#20232a; margin-bottom:3px; min-height:2.5em; overflow:hidden; text-overflow:ellipsis; white-space:normal; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;}
 .product-price { color:#ff3256; font-size:1.06em; font-weight:bold; margin-bottom:0;}
-/* ...qolgan style yuqoridagidek... */
