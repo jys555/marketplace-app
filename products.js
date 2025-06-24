@@ -1,9 +1,8 @@
 const CATEGORY_ICONS = {
-  1: "🎧", // Quloqchin
-  2: "📱", // Telefon
-  3: "💻", // Noutbuk
-  4: "⌚", // Soat
-  5: "👟", // Krossovka
+  1: "🎧",
+  2: "📱",
+  3: "💻",
+  4: "⌚"
 };
 const categories = [
   { id: 1, name_uz: "Quloqchinlar", name_ru: "Наушники" },
