@@ -135,29 +135,51 @@ window.addToCart = function(pid) {
 // -- MODAL/PRODUCT PAGE --
 window.openProduct = function(pid) {
   const p = products.find(pr=>pr.id===pid);
-  document.getElementById("header").style.display = "flex";
-  document.getElementById("header").innerHTML = `<button class="back-btn" onclick="renderHome()">&larr;</button> ${p.name}`;
+  document.getElementById("header").style.display = "none";
   document.getElementById("main").innerHTML = `
-    <div class="product-img-carousel" style="margin:20px auto 10px auto;max-width:340px;">
+    <div class="full-modal" id="fullProductModal">
+      <div class="modal-header">
+        <button class="back-btn" onclick="renderHome()">&larr;</button>
+        <div style="flex:1"></div>
+        <button class="badge-like" onclick="toggleFav(${p.id});event.stopPropagation();">${favs.includes(p.id) ? "❤️" : "🤍"}</button>
+      </div>
+      <div class="carousel-wrap" style="margin:16px 0 5px 0;">${productModalCarousel(p)}</div>
+      <div class="modal-content">
+        <div class="product-title">${p.name}</div>
+        <div class="price-row">
+          <span class="price-main">${p.price.toLocaleString('uz-UZ')} so'm</span>
+          ${p.old_price ? `<span class="price-old">${p.old_price.toLocaleString('uz-UZ')} so'm</span>` : ""}
+          ${calcDiscount(p)?`<span class="badge-discount" style="margin-left:10px">-${calcDiscount(p)}%</span>`:""}
+        </div>
+        <div class="product-desc">${p.desc}</div>
+      </div>
+      <div class="sticky-btns">
+        <button class="cart-btn" onclick="addToCart(${p.id})">&#128722; Savatga</button>
+        <button class="main-btn" onclick="toggleFav(${p.id})">${favs.includes(p.id) ? "❤️ Sevimlidan olish" : "🤍 Sevimlilarga"}</button>
+      </div>
+    </div>
+  `;
+  setupModalCarousel(p);
+}
+
+// Yangi carousel HTML generatsiya qiluvchi funksiya:
+function productModalCarousel(p) {
+  return `
+    <div class="product-img-carousel" style="margin:0 auto;max-width:340px;">
       <button class="carousel-arrow left" style="display:none">&lt;</button>
       <img src="${p.images[0]}" alt="${p.name}">
       <button class="carousel-arrow right"${p.images.length<=1?' style="display:none"':''}>&gt;</button>
       <div class="carousel-dots">
         ${p.images.map((_,i) => `<span class="carousel-dot${i===0?" active":""}"></span>`).join("")}
       </div>
-    </div>
-    <div style="padding: 20px">
-      <div style="font-size:1.2em;font-weight:bold;margin-bottom:7px;">${p.name}</div>
-      <div style="color:#888;margin-bottom:7px;">${p.desc}</div>
-      <div style="color:#ff3256;font-size:1.3em;font-weight:bold">${p.price.toLocaleString('uz-UZ')} so'm</div>
-      ${calcDiscount(p)?`<div class="badge-discount" style="margin:10px 0;display:inline-block;">-${calcDiscount(p)}%</div>`:""}
-      <div style="margin-top:20px;">
-        <button class="cart-add-btn" onclick="addToCart(${p.id});event.stopPropagation();">&#128722; Savatga</button>
-        <button class="badge-like" onclick="toggleFav(${p.id});event.stopPropagation();">${favs.includes(p.id) ? "❤️" : "🤍"}</button>
-      </div>
+      ${calcDiscount(p)?`<div class="badge-discount" style="left:12px;bottom:12px;">-${calcDiscount(p)}%</div>`:""}
+      <button class="badge-like" style="top:12px;right:12px;" onclick="toggleFav(${p.id});event.stopPropagation();">${favs.includes(p.id) ? "❤️" : "🤍"}</button>
     </div>
   `;
-  // Modal carousel
+}
+
+// Carousel uchun JS:
+function setupModalCarousel(p) {
   let cidx = 0;
   const carouselDiv = document.querySelector(".product-img-carousel");
   const img = carouselDiv.querySelector("img");
