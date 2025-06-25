@@ -79,6 +79,14 @@ header { height:46px; display:flex; align-items:center; font-size:1.18em; font-w
   cursor: pointer;
   z-index: 2;
 }
+.cart-add-btn.disabled,
+.cart-add-btn:disabled {
+  background: #ededed !important;
+  color: #888 !important;
+  border: 2.5px solid #ededed !important;
+  cursor: not-allowed !important;
+  opacity: 1 !important;
+}
 .carousel-arrow {
   position: absolute;
   top: 50%;
@@ -194,10 +202,34 @@ header { height:46px; display:flex; align-items:center; font-size:1.18em; font-w
   display: flex; gap: 9px; padding: 6px 12px 6px 12px;
   background: #fff; z-index: 105; box-shadow: 0 -4px 22px #f5f5fa;
 }
-.full-modal .main-btn, .full-modal .cart-btn {
-  border-radius: 12px; border: none; font-size: 1.08em; padding: 12px 0;
-  flex: 1; font-weight: 600; cursor: pointer; transition: background 0.15s;
+.full-modal .main-btn {
+  border-radius: 12px; border: 2.5px solid #ffe900; background: #fff; color: #222; font-size: 1.08em; padding: 12px 0; flex: 1; font-weight: 600; cursor: pointer;
 }
-.full-modal .main-btn { background: #fff; color: #222; border: 2.5px solid #ffe900; }
-.full-modal .cart-btn { background: #ffe900; color: #222; border: 2.5px solid #ffe900; }
-.full-modal .main-btn:active, .full-modal .cart-btn:active { background: #ffd600; }
+.full-modal .cart-btn {
+  border-radius: 12px; border: none; font-size: 1.08em; padding: 12px 0; flex: 1; font-weight: 600; cursor: pointer; background: #ffe900; color: #222; border: 2.5px solid #ffe900;
+}
+.full-modal .cart-btn.disabled,
+.full-modal .cart-btn:disabled {
+  background: #ededed !important;
+  color: #888 !important;
+  border: 2.5px solid #ededed !important;
+  cursor: not-allowed !important;
+  opacity: 1 !important;
+}
+.buy-sheet-overlay {
+  position: fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.18);z-index:99999;
+}
+.buy-sheet {
+  position: fixed; left:50%; bottom:70px; transform:translateX(-50%);
+  background:#fff; border-radius:14px 14px 18px 18px; box-shadow:0 9px 32px #0003;
+  padding:16px 18px 16px 18px; display:flex; gap:14px; z-index:100000;
+  min-width:270px; max-width:97vw;
+  justify-content:center;
+}
+.buy-sheet-btn {
+  flex:1; font-size:1.05em; border:none; border-radius:12px; padding:9px 13px;font-weight:600; cursor:pointer; transition:background 0.16s;
+  display:flex; align-items:center; justify-content:center; gap:6px;
+}
+.buy-sheet-btn.uzum { background:#ffe900; color:#222; border:2px solid #ffe900;}
+.buy-sheet-btn.yandex { background:#fff; color:#19191a; border:2px solid #ffe900;}
+.buy-sheet-btn:active { background:#ffd600;}
