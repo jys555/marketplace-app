@@ -20,6 +20,8 @@ const products = [
       "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80",
       "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
     ],
+    uzum_url: "https://uzum.uz/product/iphone-14-pro",  // Namuna havola
+    yandex_url: "https://market.yandex.uz/product--iphone-14-pro/123456", // Namuna havola
     category: 1
   },
   {
@@ -32,6 +34,8 @@ const products = [
       "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
       "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80"
     ],
+    uzum_url: "https://uzum.uz/product/samsung-galaxy-s23",
+    yandex_url: "https://market.yandex.uz/product--samsung-galaxy-s23/654321",
     category: 1
   },
   {
@@ -43,6 +47,8 @@ const products = [
     images: [
       "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80"
     ],
+    uzum_url: "https://uzum.uz/product/mi-band-8",
+    yandex_url: "https://market.yandex.uz/product--mi-band-8/323232",
     category: 4
   }
 ];
@@ -85,13 +91,15 @@ function renderHome() {
 }
 function productCardHTML(p, idx) {
   const disc = calcDiscount(p);
+  const isInCart = cart.includes(p.id);
+  const isFav = favs.includes(p.id);
   return `
     <div class="product-card" data-pid="${p.id}">
       <div class="product-img-carousel" id="carousel-${p.id}">
         <img src="${p.images[0]}" alt="${p.name}" onclick="openProduct(${p.id})">
-        <button class="badge-like" onclick="event.stopPropagation();toggleFav(${p.id});" title="Sevimli">${favs.includes(p.id) ? "❤️" : "🤍"}</button>
+        <button class="badge-like" onclick="event.stopPropagation();toggleFav(${p.id});" title="Sevimli">${isFav ? "❤️" : "🤍"}</button>
         ${disc ? `<div class="badge-discount">-${disc}%</div>` : ""}
-        <button class="cart-add-btn" onclick="event.stopPropagation();addToCart(${p.id});" title="Savatga">&#128722;</button>
+        <button class="cart-add-btn${isInCart ? " disabled" : ""}" onclick="event.stopPropagation();${!isInCart ? `addToCart(${p.id})` : ""}" ${isInCart ? "disabled" : ""} title="Savatga">&#128722;</button>
         <button class="carousel-arrow left" style="display:none">&lt;</button>
         <button class="carousel-arrow right"${p.images.length<=1?' style="display:none"':''}>&gt;</button>
         <div class="carousel-dots">
@@ -126,22 +134,24 @@ function setupCardCarousel(p, idx) {
 }
 window.toggleFav = function(pid) {
   if(favs.includes(pid)) favs = favs.filter(id=>id!==pid); else favs.push(pid);
-  renderHome();
+  openProduct(pid);
 };
 window.addToCart = function(pid) {
   if(!cart.includes(pid)) cart.push(pid);
-  renderHome();
+  openProduct(pid);
 };
-// -- MODAL/PRODUCT PAGE --
+// MODAL/PRODUCT PAGE - Yandex/Uzum style
 window.openProduct = function(pid) {
   const p = products.find(pr=>pr.id===pid);
+  const isInCart = cart.includes(p.id);
+  const isFav = favs.includes(p.id);
   document.getElementById("header").style.display = "none";
   document.getElementById("main").innerHTML = `
     <div class="full-modal" id="fullProductModal">
       <div class="modal-header">
         <button class="back-btn" onclick="renderHome()">&larr;</button>
         <div style="flex:1"></div>
-        <button class="badge-like" onclick="toggleFav(${p.id});event.stopPropagation();">${favs.includes(p.id) ? "❤️" : "🤍"}</button>
+        <button class="badge-like" onclick="toggleFav(${p.id});event.stopPropagation();">${isFav ? "❤️" : "🤍"}</button>
       </div>
       <div class="carousel-wrap" style="margin:16px 0 5px 0;">${productModalCarousel(p)}</div>
       <div class="modal-content">
@@ -149,20 +159,18 @@ window.openProduct = function(pid) {
         <div class="price-row">
           <span class="price-main">${p.price.toLocaleString('uz-UZ')} so'm</span>
           ${p.old_price ? `<span class="price-old">${p.old_price.toLocaleString('uz-UZ')} so'm</span>` : ""}
-          ${calcDiscount(p)?`<span class="badge-discount" style="margin-left:10px">-${calcDiscount(p)}%</span>`:""}
         </div>
         <div class="product-desc">${p.desc}</div>
       </div>
       <div class="sticky-btns">
-        <button class="cart-btn" onclick="addToCart(${p.id})">&#128722; Savatga</button>
-        <button class="main-btn" onclick="toggleFav(${p.id})">${favs.includes(p.id) ? "❤️ Sevimlidan olish" : "🤍 Sevimlilarga"}</button>
+        <button class="main-btn" onclick="showBuySheet(${p.id})">Hozir sotib olish</button>
+        <button class="cart-btn${isInCart ? " disabled" : ""}" onclick="${!isInCart ? `addToCart(${p.id})` : ""}" ${isInCart ? "disabled" : ""}>🛒 Savatga</button>
       </div>
     </div>
+    <div id="buy-sheet-root"></div>
   `;
   setupModalCarousel(p);
 }
-
-// Yangi carousel HTML generatsiya qiluvchi funksiya:
 function productModalCarousel(p) {
   return `
     <div class="product-img-carousel" style="margin:0 auto;max-width:340px;">
@@ -177,8 +185,6 @@ function productModalCarousel(p) {
     </div>
   `;
 }
-
-// Carousel uchun JS:
 function setupModalCarousel(p) {
   let cidx = 0;
   const carouselDiv = document.querySelector(".product-img-carousel");
@@ -197,7 +203,25 @@ function setupModalCarousel(p) {
   dots.forEach((dot, i) => dot.onclick = (ev) => { ev.stopPropagation(); cidx = i; update(); });
   update();
 }
-// --- KATEGORIYA SAHIFA ---
+// "Hozir sotib olish" tugmasi uchun kichik oynacha
+window.showBuySheet = function(pid) {
+  const p = products.find(pr=>pr.id===pid);
+  document.getElementById("buy-sheet-root").innerHTML = `
+    <div class="buy-sheet-overlay" onclick="closeBuySheet()"></div>
+    <div class="buy-sheet">
+      <button class="buy-sheet-btn uzum" onclick="window.open('${p.uzum_url}','_blank')">
+        <img src="https://seeklogo.com/images/U/uzum-logo-1E2B21E357-seeklogo.com.png" style="width:22px;vertical-align:middle;margin-right:7px;"> Uzum orqali xarid qilish
+      </button>
+      <button class="buy-sheet-btn yandex" onclick="window.open('${p.yandex_url}','_blank')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Yandex_logo_icon.svg" style="width:22px;vertical-align:middle;margin-right:7px;"> Yandex orqali xarid qilish
+      </button>
+    </div>
+  `;
+};
+window.closeBuySheet = function() {
+  document.getElementById("buy-sheet-root").innerHTML = "";
+}
+// Kategoriya va qolgan sahifalar (oldingi kabi, o‘zgartirmasdan)
 function renderCategory() {
   document.getElementById("header").style.display = "flex";
   document.getElementById("header").innerHTML = `<button class="back-btn" onclick="renderHome()">&larr;</button> Kategoriyalar`;
@@ -219,14 +243,12 @@ window.showCategory = function(cid) {
   `;
   products.filter(p=>p.category===cid).forEach((p,i) => setupCardCarousel(p,i));
 }
-// --- SEVIMLILAR ---
 function renderFavorites() {
   document.getElementById("header").style.display = "flex";
   document.getElementById("header").innerHTML = `<button class="back-btn" onclick="renderHome()">&larr;</button> Sevimlilar`;
   document.getElementById("main").innerHTML = `<div class="product-grid">${products.filter(p=>favs.includes(p.id)).map(productCardHTML).join("")}</div>`;
   products.filter(p=>favs.includes(p.id)).forEach((p,i) => setupCardCarousel(p,i));
 }
-// --- SAVAT ---
 function renderCart() {
   document.getElementById("header").style.display = "flex";
   document.getElementById("header").innerHTML = `<button class="back-btn" onclick="renderHome()">&larr;</button> Savat`;
@@ -236,5 +258,4 @@ function renderCart() {
     : `<div style="padding:18px">Savat bo'sh.</div>`;
   cartItems.forEach((p,i) => setupCardCarousel(p,i));
 }
-
 renderHome();
