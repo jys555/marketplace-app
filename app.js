@@ -181,7 +181,7 @@ function productModalCarousel(p) {
         ${p.images.map((_,i) => `<span class="carousel-dot${i===0?" active":""}"></span>`).join("")}
       </div>
       ${calcDiscount(p)?`<div class="badge-discount" style="left:12px;bottom:12px;">-${calcDiscount(p)}%</div>`:""}
-      <button class="badge-like" style="top:12px;right:12px;" onclick="toggleFav(${p.id});event.stopPropagation();">${favs.includes(p.id) ? "❤️" : "🤍"}</button>
+// <button class="badge-like" style="top:12px;right:12px;" onclick="toggleFav(${p.id});event.stopPropagation();">${favs.includes(p.id) ? "❤️" : "🤍"}</button>
     </div>
   `;
 }
