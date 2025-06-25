@@ -20,8 +20,8 @@ const products = [
       "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80",
       "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
     ],
-    uzum_url: "https://uzum.uz/product/iphone-14-pro",  // Namuna havola
-    yandex_url: "https://market.yandex.uz/product--iphone-14-pro/123456", // Namuna havola
+    uzum_url: "https://uzum.uz/product/iphone-14-pro",
+    yandex_url: "https://market.yandex.uz/product--iphone-14-pro/123456",
     category: 1
   },
   {
@@ -98,13 +98,13 @@ function productCardHTML(p, idx) {
       <div class="product-img-carousel" id="carousel-${p.id}">
         <img src="${p.images[0]}" alt="${p.name}" onclick="openProduct(${p.id})">
         <button class="badge-like"
-          onclick="event.stopPropagation();toggleFav(${p.id});"
+          onclick="event.stopPropagation();toggleFavCard(${p.id});"
           title="Sevimli">
           ${isFav ? "❤️" : "🤍"}
         </button>
         ${disc ? `<div class="badge-discount">-${disc}%</div>` : ""}
         <button class="cart-add-btn${isInCart ? " disabled" : ""}"
-          onclick="event.stopPropagation();${!isInCart ? `addToCart(${p.id})` : ""}"
+          onclick="event.stopPropagation();${!isInCart ? `addToCartCard(${p.id})` : ""}"
           ${isInCart ? "disabled" : ""}
           title="Savatga">&#128722;
         </button>
@@ -123,6 +123,34 @@ function productCardHTML(p, idx) {
     </div>
   `;
 }
+
+// Kartochkadagi yurak va savat uchun faqat sahifani yangilash
+window.toggleFavCard = function(pid) {
+  if(favs.includes(pid)) favs = favs.filter(id=>id!==pid); else favs.push(pid);
+  if (page === "home") renderHome();
+  else if (page === "favorites") renderFavorites();
+  else if (page === "category") renderCategory();
+  else if (page === "cart") renderCart();
+};
+window.addToCartCard = function(pid) {
+  if(!cart.includes(pid)) cart.push(pid);
+  if (page === "home") renderHome();
+  else if (page === "favorites") renderFavorites();
+  else if (page === "category") renderCategory();
+  else if (page === "cart") renderCart();
+};
+
+// MODAL/PRODUCT sahifa uchun - eski funksiya: modalni qayta ochish
+window.toggleFav = function(pid) {
+  if(favs.includes(pid)) favs = favs.filter(id=>id!==pid); else favs.push(pid);
+  openProduct(pid);
+};
+window.addToCart = function(pid) {
+  if(!cart.includes(pid)) cart.push(pid);
+  openProduct(pid);
+};
+
+// Carousel setup
 function setupCardCarousel(p, idx) {
   let cidx = 0;
   const card = document.querySelectorAll(".product-card")[idx];
@@ -142,14 +170,7 @@ function setupCardCarousel(p, idx) {
   dots.forEach((dot, i) => dot.onclick = (ev) => { ev.stopPropagation(); cidx = i; update(); });
   img.onclick = (ev) => { ev.stopPropagation(); openProduct(p.id); };
 }
-window.toggleFav = function(pid) {
-  if(favs.includes(pid)) favs = favs.filter(id=>id!==pid); else favs.push(pid);
-  openProduct(pid);
-};
-window.addToCart = function(pid) {
-  if(!cart.includes(pid)) cart.push(pid);
-  openProduct(pid);
-};
+
 // MODAL/PRODUCT PAGE - Yandex/Uzum style
 window.openProduct = function(pid) {
   const p = products.find(pr=>pr.id===pid);
@@ -191,7 +212,6 @@ function productModalCarousel(p) {
         ${p.images.map((_,i) => `<span class="carousel-dot${i===0?" active":""}"></span>`).join("")}
       </div>
       ${calcDiscount(p)?`<div class="badge-discount" style="left:12px;bottom:12px;">-${calcDiscount(p)}%</div>`:""}
-// <button class="badge-like" style="top:12px;right:12px;" onclick="toggleFav(${p.id});event.stopPropagation();">${favs.includes(p.id) ? "❤️" : "🤍"}</button>
     </div>
   `;
 }
@@ -213,6 +233,7 @@ function setupModalCarousel(p) {
   dots.forEach((dot, i) => dot.onclick = (ev) => { ev.stopPropagation(); cidx = i; update(); });
   update();
 }
+
 // "Hozir sotib olish" tugmasi uchun kichik oynacha
 window.showBuySheet = function(pid) {
   const p = products.find(pr=>pr.id===pid);
@@ -231,6 +252,7 @@ window.showBuySheet = function(pid) {
 window.closeBuySheet = function() {
   document.getElementById("buy-sheet-root").innerHTML = "";
 }
+
 // Kategoriya va qolgan sahifalar (oldingi kabi, o‘zgartirmasdan)
 function renderCategory() {
   document.getElementById("header").style.display = "flex";
