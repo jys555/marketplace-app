@@ -97,16 +97,26 @@ function productCardHTML(p, idx) {
     <div class="product-card" data-pid="${p.id}">
       <div class="product-img-carousel" id="carousel-${p.id}">
         <img src="${p.images[0]}" alt="${p.name}" onclick="openProduct(${p.id})">
-        <button class="badge-like" onclick="event.stopPropagation();toggleFav(${p.id});" title="Sevimli">${isFav ? "❤️" : "🤍"}</button>
+        <button class="badge-like"
+          onclick="event.stopPropagation();toggleFav(${p.id});"
+          title="Sevimli">
+          ${isFav ? "❤️" : "🤍"}
+        </button>
         ${disc ? `<div class="badge-discount">-${disc}%</div>` : ""}
-        <button class="cart-add-btn${isInCart ? " disabled" : ""}" onclick="event.stopPropagation();${!isInCart ? `addToCart(${p.id})` : ""}" ${isInCart ? "disabled" : ""} title="Savatga">&#128722;</button>
-        <button class="carousel-arrow left" style="display:none">&lt;</button>
-        <button class="carousel-arrow right"${p.images.length<=1?' style="display:none"':''}>&gt;</button>
+        <button class="cart-add-btn${isInCart ? " disabled" : ""}"
+          onclick="event.stopPropagation();${!isInCart ? `addToCart(${p.id})` : ""}"
+          ${isInCart ? "disabled" : ""}
+          title="Savatga">&#128722;
+        </button>
+        <button class="carousel-arrow left" style="display:none"
+          onclick="event.stopPropagation();"></button>
+        <button class="carousel-arrow right"${p.images.length<=1?' style="display:none"':''}
+          onclick="event.stopPropagation();"></button>
         <div class="carousel-dots">
-          ${p.images.map((_,i) => `<span class="carousel-dot${i===0?" active":""}"></span>`).join("")}
+          ${p.images.map((_,i) => `<span class="carousel-dot${i===0?" active":""}" onclick="event.stopPropagation();"></span>`).join("")}
         </div>
       </div>
-      <div class="product-info" onclick="openProduct(${p.id})" style="cursor:pointer">
+      <div class="product-info" style="cursor:pointer" onclick="openProduct(${p.id})">
         <div class="product-name">${p.name}</div>
         <div class="product-price">${p.price.toLocaleString('uz-UZ')} so'm</div>
       </div>
