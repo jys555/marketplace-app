@@ -15,6 +15,7 @@ header { height:46px; display:flex; align-items:center; font-size:1.18em; font-w
 .banner img { width:100%; height:100%; object-fit:cover;}
 .cat-grid { display:grid; grid-template-columns:1fr 1fr; gap:13px; padding:18px 8px 0 8px;}
 .cat-card { background:linear-gradient(120deg,#ffeb3b1a 0%,#f4f6fa 100%); border-radius:14px; box-shadow:0 1px 6px rgba(0,0,0,0.06); display:flex; flex-direction:column; align-items:center; padding:20px 0 14px 0; cursor:pointer; font-size:1.08em; border:2.5px solid #ffe90044; transition:box-shadow .15s, border .15s; gap:6px;}
+.cat-card:hover { box-shadow:0 2px 14px #ffe9002c; border:2.5px solid #ffd600;}
 .cat-emoji { font-size:2.2em; margin-bottom:4px;}
 .cat-name { margin-top:0; text-align:center; color:#222; font-weight:500;}
 .product-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:12px 8px 0 8px;}
@@ -142,3 +143,61 @@ header { height:46px; display:flex; align-items:center; font-size:1.18em; font-w
   font-weight: bold;
   margin-bottom: 0;
 }
+
+/* ------ MODAL / PRODUCT SAHIFA ------ */
+.full-modal {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: #fff;
+  z-index: 9999;
+  overflow-y: auto;
+  display: flex; flex-direction: column;
+}
+.full-modal .modal-header {
+  height: 46px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #f4f6fa;
+  padding-left: 8px;
+  background: #fff;
+  position: sticky; top: 0; z-index: 20;
+}
+.full-modal .modal-header .back-btn {
+  font-size: 1.4em; background: none; border: none;
+  margin-right: 10px; cursor: pointer;
+}
+.full-modal .modal-header .badge-like {
+  margin-left: auto; margin-right: 8px; font-size: 1.21em;
+}
+.carousel-wrap { margin-top: 8px; margin-bottom: 4px; }
+.full-modal .modal-content {
+  padding: 12px 14px 12px 14px;
+}
+.full-modal .product-title {
+  font-size: 1.15em; font-weight: 600; margin-bottom: 7px;
+}
+.full-modal .price-row {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 7px;
+}
+.full-modal .price-main {
+  color: #ff3256; font-size: 1.17em; font-weight: bold;
+}
+.full-modal .price-old {
+  color: #888; text-decoration: line-through; font-size: 1em;
+}
+.full-modal .product-desc {
+  color: #444; font-size: 1.02em; line-height: 1.57; margin-bottom: 18px;
+}
+.full-modal .sticky-btns {
+  position: fixed; left: 0; right: 0; bottom: 56px;
+  width: 100vw; max-width: 480px; margin: 0 auto;
+  display: flex; gap: 9px; padding: 6px 12px 6px 12px;
+  background: #fff; z-index: 105; box-shadow: 0 -4px 22px #f5f5fa;
+}
+.full-modal .main-btn, .full-modal .cart-btn {
+  border-radius: 12px; border: none; font-size: 1.08em; padding: 12px 0;
+  flex: 1; font-weight: 600; cursor: pointer; transition: background 0.15s;
+}
+.full-modal .main-btn { background: #fff; color: #222; border: 2.5px solid #ffe900; }
+.full-modal .cart-btn { background: #ffe900; color: #222; border: 2.5px solid #ffe900; }
+.full-modal .main-btn:active, .full-modal .cart-btn:active { background: #ffd600; }
