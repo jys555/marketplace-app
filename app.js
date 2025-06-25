@@ -86,18 +86,18 @@ function renderHome() {
 function productCardHTML(p, idx) {
   const disc = calcDiscount(p);
   return `
-    <div class="product-card">
+    <div class="product-card" data-pid="${p.id}">
       <div class="product-img-carousel" id="carousel-${p.id}">
+        <img src="${p.images[0]}" alt="${p.name}" onclick="openProduct(${p.id})">
+        <button class="badge-like" onclick="event.stopPropagation();toggleFav(${p.id});" title="Sevimli">${favs.includes(p.id) ? "❤️" : "🤍"}</button>
+        ${disc ? `<div class="badge-discount">-${disc}%</div>` : ""}
+        <button class="cart-add-btn" onclick="event.stopPropagation();addToCart(${p.id});" title="Savatga">&#128722;</button>
         <button class="carousel-arrow left" style="display:none">&lt;</button>
-        <img src="${p.images[0]}" alt="${p.name}">
         <button class="carousel-arrow right"${p.images.length<=1?' style="display:none"':''}>&gt;</button>
         <div class="carousel-dots">
           ${p.images.map((_,i) => `<span class="carousel-dot${i===0?" active":""}"></span>`).join("")}
         </div>
       </div>
-      <button class="badge-like" onclick="event.stopPropagation();toggleFav(${p.id});">${favs.includes(p.id) ? "❤️" : "🤍"}</button>
-      ${disc?`<div class="badge-discount">-${disc}%</div>`:""}
-      <button class="cart-add-btn" onclick="event.stopPropagation();addToCart(${p.id});">&#128722;</button>
       <div class="product-info" onclick="openProduct(${p.id})" style="cursor:pointer">
         <div class="product-name">${p.name}</div>
         <div class="product-price">${p.price.toLocaleString('uz-UZ')} so'm</div>
