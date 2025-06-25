@@ -1,11 +1,57 @@
 body { margin:0; padding:0; font-family:'Segoe UI', Arial, sans-serif; background:#f4f6fa; min-height:100vh;}
 #main { padding: 0 0 76px 0; min-height:100vh;}
 header { height:46px; display:flex; align-items:center; font-size:1.18em; font-weight:600; padding-left:12px; background:#fff; box-shadow:0 1px 4px #ececec; letter-spacing:0.2px;}
-.bottom-nav { position:fixed; left:0; bottom:0; width:100vw; display:flex; background:#fff; box-shadow:0 -1px 8px rgba(0,0,0,0.07); border-top:1px solid #eee; z-index:100;}
-.bottom-nav .nav-btn { flex:1; border:none; background:none; display:flex; flex-direction:column; align-items:center; font-size:0.97em; color:#888; transition:color 0.2s; outline:none; gap:2px; position:relative; padding:7px 0 3px 0;}
-.bottom-nav .nav-btn.active .nav-ico { stroke:#2196f3; }
-.bottom-nav .nav-btn .nav-ico { width:28px; height:28px; display:block; stroke:#888;}
+
+/* --- Yandex Market style bottom-nav --- */
+.bottom-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 56px;
+  width: 100vw;
+  display: flex;
+  background: #fff;
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.06);
+  border-top: 1.7px solid #ececec;
+  z-index: 9999;
+  justify-content: space-around;
+  align-items: center;
+}
+.bottom-nav .nav-btn {
+  flex: 1;
+  border: none;
+  background: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.97em;
+  color: #b3b3b3;
+  transition: color 0.2s;
+  outline: none;
+  gap: 2px;
+  position: relative;
+  padding: 7px 0 3px 0;
+  justify-content: center;
+  height: 100%;
+}
+.bottom-nav .nav-btn.active,
+.bottom-nav .nav-btn:active {
+  color: #19191a;
+}
+.bottom-nav .nav-btn .nav-ico {
+  width: 27px;
+  height: 27px;
+  display: block;
+  stroke: currentColor;
+  fill: none;
+  margin-bottom: 2px;
+}
+.bottom-nav .nav-btn.active .nav-ico {
+  stroke: #19191a;
+}
 #cart-badge { position:absolute; top:5px; right:20px; background:#ff3256; color:#fff; font-size:0.9em; min-width:18px; height:18px; border-radius:50%; display:none; align-items:center; justify-content:center; font-weight:bold;}
+
 .amazing-banner { border-radius:18px; overflow:hidden; position:relative; margin:13px 10px 12px 10px; box-shadow:0 2px 12px rgba(255,50,86,0.12); border:2.5px solid #ff3256; background:#fff;}
 .amazing-banner img { width:100%; height:85px; object-fit:cover; display:block;}
 .amazing-title { position:absolute; left:18px; top:13px; color:#fff; font-size:1.17em; font-weight:bold; background:#ff3256eb; padding:4px 18px 4px 12px; border-radius:8px; letter-spacing:1px;}
