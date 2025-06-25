@@ -58,17 +58,37 @@ let cart = [];
 let page = "home";
 let currentProductId = null;
 
-// --- HELPERS ---
-function calcDiscount(p) {
-  if (!p.old_price || p.old_price <= p.price) return null;
-  return Math.round(100 - (p.price * 100) / p.old_price);
-}
+// --- SVG NAVBAR ICONS (Yandex Market style, no profile) ---
+const homeSVG = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#19191a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11L12 4l9 7"/><path d="M4 10v10a1 1 0 0 0 1 1h5v-6h4v6h5a1 1 0 0 0 1-1V10"/></svg>`;
+const catSVG = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#19191a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>`;
+const heartSVG = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#19191a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5.5 5.5 0 0 0-7.8 0l-1 1-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.6-8.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>`;
+const cartSVG = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#19191a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="20.5" r="1.5"/><circle cx="17.5" cy="20.5" r="1.5"/><path d="M2.5 4h2l2.68 13.39a2 2 0 0 0 2 1.61h7.72a2 2 0 0 0 2-1.61L21.5 7h-17"/></svg>`;
 
-// --- NAVBAR ---
-document.getElementById("nav-home").onclick = function() { setActive(this); page="home"; renderHome(); };
-document.getElementById("nav-category").onclick = function() { setActive(this); page="category"; renderCategory(); };
-document.getElementById("nav-favorites").onclick = function() { setActive(this); page="favorites"; renderFavorites(); };
-document.getElementById("nav-cart").onclick = function() { setActive(this); page="cart"; renderCart(); };
+// --- NAVBAR render & events ---
+function renderNavbar(active) {
+  return `
+    <div class="bottom-nav">
+      <button id="nav-home" class="nav-btn${active==="home"?" active":""}">
+        <span class="nav-ico">${homeSVG}</span>
+      </button>
+      <button id="nav-category" class="nav-btn${active==="category"?" active":""}">
+        <span class="nav-ico">${catSVG}</span>
+      </button>
+      <button id="nav-favorites" class="nav-btn${active==="favorites"?" active":""}">
+        <span class="nav-ico">${heartSVG}</span>
+      </button>
+      <button id="nav-cart" class="nav-btn${active==="cart"?" active":""}">
+        <span class="nav-ico">${cartSVG}</span>
+      </button>
+    </div>
+  `;
+}
+function setNavbarEvents() {
+  document.getElementById("nav-home")?.addEventListener("click", function() { setActive(this); page="home"; renderHome(); });
+  document.getElementById("nav-category")?.addEventListener("click", function() { setActive(this); page="category"; renderCategory(); });
+  document.getElementById("nav-favorites")?.addEventListener("click", function() { setActive(this); page="favorites"; renderFavorites(); });
+  document.getElementById("nav-cart")?.addEventListener("click", function() { setActive(this); page="cart"; renderCart(); });
+}
 function setActive(btn) {
   document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));
   btn.classList.add("active");
@@ -86,9 +106,50 @@ function renderHome() {
       ${banners.map((src,i)=>`<div class="banner${i===0?" active":""}"><img src="${src}"></div>`).join("")}
     </div>
     <div class="product-grid">${products.map(productCardHTML).join("")}</div>
+    ${renderNavbar("home")}
   `;
   products.forEach((p,i) => setupCardCarousel(p,i));
+  setNavbarEvents();
 }
+function renderCategory() {
+  document.getElementById("header").style.display = "flex";
+  document.getElementById("header").innerHTML = `<button class="back-btn" onclick="renderHome()">&larr;</button> Kategoriyalar`;
+  document.getElementById("main").innerHTML = `
+    <div class="cat-grid">
+      ${categories.map(cat=>`
+        <div class="cat-card" onclick="showCategory(${cat.id})">
+          <span class="cat-emoji">${cat.icon}</span>
+          <div class="cat-name">${cat.name}</div>
+        </div>
+      `).join("")}
+    </div>
+    ${renderNavbar("category")}
+  `;
+  setNavbarEvents();
+}
+function renderFavorites() {
+  document.getElementById("header").style.display = "flex";
+  document.getElementById("header").innerHTML = `<button class="back-btn" onclick="renderHome()">&larr;</button> Sevimlilar`;
+  document.getElementById("main").innerHTML = `
+    <div class="product-grid">${products.filter(p=>favs.includes(p.id)).map(productCardHTML).join("")}</div>
+    ${renderNavbar("favorites")}
+  `;
+  products.filter(p=>favs.includes(p.id)).forEach((p,i) => setupCardCarousel(p,i));
+  setNavbarEvents();
+}
+function renderCart() {
+  document.getElementById("header").style.display = "flex";
+  document.getElementById("header").innerHTML = `<button class="back-btn" onclick="renderHome()">&larr;</button> Savat`;
+  const cartItems = products.filter(p=>cart.includes(p.id));
+  document.getElementById("main").innerHTML = (cartItems.length 
+    ? `<div class="product-grid">${cartItems.map(productCardHTML).join("")}</div>`
+    : `<div style="padding:18px">Savat bo'sh.</div>`)
+    + renderNavbar("cart");
+  cartItems.forEach((p,i) => setupCardCarousel(p,i));
+  setNavbarEvents();
+}
+
+// --- PRODUCT CARD ---
 function productCardHTML(p, idx) {
   const disc = calcDiscount(p);
   const isInCart = cart.includes(p.id);
@@ -198,10 +259,12 @@ window.openProduct = function(pid) {
         <button class="cart-btn${isInCart ? " disabled" : ""}" onclick="${!isInCart ? `addToCart(${p.id})` : ""}" ${isInCart ? "disabled" : ""}>🛒 Savatga</button>
       </div>
     </div>
+    ${renderNavbar("home")}
     <div id="buy-sheet-root"></div>
   `;
   setupModalCarousel(p);
-}
+  setNavbarEvents();
+};
 function productModalCarousel(p) {
   return `
     <div class="product-img-carousel" style="margin:0 auto;max-width:340px;">
@@ -252,42 +315,14 @@ window.showBuySheet = function(pid) {
 window.closeBuySheet = function() {
   document.getElementById("buy-sheet-root").innerHTML = "";
 }
-
 // Kategoriya va qolgan sahifalar (oldingi kabi, o‘zgartirmasdan)
-function renderCategory() {
-  document.getElementById("header").style.display = "flex";
-  document.getElementById("header").innerHTML = `<button class="back-btn" onclick="renderHome()">&larr;</button> Kategoriyalar`;
-  document.getElementById("main").innerHTML = `
-    <div class="cat-grid">
-      ${categories.map(cat=>`
-        <div class="cat-card" onclick="showCategory(${cat.id})">
-          <span class="cat-emoji">${cat.icon}</span>
-          <div class="cat-name">${cat.name}</div>
-        </div>
-      `).join("")}
-    </div>
-  `;
-}
 window.showCategory = function(cid) {
   document.getElementById("header").innerHTML = `<button class="back-btn" onclick="renderCategory()">&larr;</button> ${categories.find(c=>c.id===cid).name}`;
   document.getElementById("main").innerHTML = `
     <div class="product-grid">${products.filter(p=>p.category===cid).map(productCardHTML).join("")}</div>
+    ${renderNavbar("category")}
   `;
   products.filter(p=>p.category===cid).forEach((p,i) => setupCardCarousel(p,i));
-}
-function renderFavorites() {
-  document.getElementById("header").style.display = "flex";
-  document.getElementById("header").innerHTML = `<button class="back-btn" onclick="renderHome()">&larr;</button> Sevimlilar`;
-  document.getElementById("main").innerHTML = `<div class="product-grid">${products.filter(p=>favs.includes(p.id)).map(productCardHTML).join("")}</div>`;
-  products.filter(p=>favs.includes(p.id)).forEach((p,i) => setupCardCarousel(p,i));
-}
-function renderCart() {
-  document.getElementById("header").style.display = "flex";
-  document.getElementById("header").innerHTML = `<button class="back-btn" onclick="renderHome()">&larr;</button> Savat`;
-  const cartItems = products.filter(p=>cart.includes(p.id));
-  document.getElementById("main").innerHTML = cartItems.length 
-    ? `<div class="product-grid">${cartItems.map(productCardHTML).join("")}</div>`
-    : `<div style="padding:18px">Savat bo'sh.</div>`;
-  cartItems.forEach((p,i) => setupCardCarousel(p,i));
+  setNavbarEvents();
 }
 renderHome();
