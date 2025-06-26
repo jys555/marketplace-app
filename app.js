@@ -59,10 +59,19 @@ let page = "home";
 let currentProductId = null;
 
 // --- NAVBAR ICONS (SVG) ---
-const homeSVG = `<svg class="nav-ico" width="24" height="24" fill="none"><path d="M4 10v9a1 1 0 001 1h4v-5h2v5h4a1 1 0 001-1v-9m-9 0L12 5l7 5" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-const catSVG = `<svg class="nav-ico" width="24" height="24" fill="none"><rect x="3" y="3" width="7" height="7" rx="2" stroke="#888" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="2" stroke="#888" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="2" stroke="#888" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="2" stroke="#888" stroke-width="2"/></svg>`;
-const heartSVG = `<svg class="nav-ico" width="24" height="24" fill="none"><path d="M12 21s-7-4.35-7-10a5 5 0 0110 0a5 5 0 0110 0c0 5.65-7 10-7 10z" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-const cartSVG = `<svg class="nav-ico" width="24" height="24" fill="none"><path d="M6 6H21L20 16H7L6 6Z" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20" r="1" stroke="#888" stroke-width="2"/><circle cx="18" cy="20" r="1" stroke="#888" stroke-width="2"/></svg>`;
+
+const homeSVG = `<svg class="nav-ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+  <path d="M4 10v9a1 1 0 0 0 1 1h4v-5h2v5h4a1 1 0 0 0 1-1v-9M4 10L12 4l8 6"/>
+</svg>`;
+const catSVG = `<svg class="nav-ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+  <rect x="3" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/>
+</svg>`;
+const heartSVG = `<svg class="nav-ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+  <path d="M12 21s-7-4.35-7-10a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 5.65-7 10-7 10z"/>
+</svg>`;
+const cartSVG = `<svg class="nav-ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+  <path d="M6 6h15l-1 10H7L6 6z"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/>
+</svg>`;
 
 // --- HELPERS ---
 function calcDiscount(p) {
