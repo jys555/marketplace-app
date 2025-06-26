@@ -58,17 +58,35 @@ let cart = [];
 let page = "home";
 let currentProductId = null;
 
+// --- NAVBAR ICONS (SVG) ---
+const homeSVG = `<svg class="nav-ico" width="24" height="24" fill="none"><path d="M4 10v9a1 1 0 001 1h4v-5h2v5h4a1 1 0 001-1v-9m-9 0L12 5l7 5" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const catSVG = `<svg class="nav-ico" width="24" height="24" fill="none"><rect x="3" y="3" width="7" height="7" rx="2" stroke="#888" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="2" stroke="#888" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="2" stroke="#888" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="2" stroke="#888" stroke-width="2"/></svg>`;
+const heartSVG = `<svg class="nav-ico" width="24" height="24" fill="none"><path d="M12 21s-7-4.35-7-10a5 5 0 0110 0a5 5 0 0110 0c0 5.65-7 10-7 10z" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const cartSVG = `<svg class="nav-ico" width="24" height="24" fill="none"><path d="M6 6H21L20 16H7L6 6Z" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20" r="1" stroke="#888" stroke-width="2"/><circle cx="18" cy="20" r="1" stroke="#888" stroke-width="2"/></svg>`;
+
 // --- HELPERS ---
 function calcDiscount(p) {
   if (!p.old_price || p.old_price <= p.price) return null;
   return Math.round(100 - (p.price * 100) / p.old_price);
 }
 
-// --- NAVBAR ---
-document.getElementById("nav-home").onclick = function() { setActive(this); page="home"; renderHome(); };
-document.getElementById("nav-category").onclick = function() { setActive(this); page="category"; renderCategory(); };
-document.getElementById("nav-favorites").onclick = function() { setActive(this); page="favorites"; renderFavorites(); };
-document.getElementById("nav-cart").onclick = function() { setActive(this); page="cart"; renderCart(); };
+// --- NAVBAR RENDERING ---
+function renderNavbar(active) {
+  return `
+    <nav class="bottom-nav">
+      <button id="nav-home" class="nav-btn${active==="home"?" active":""}" title="Bosh sahifa">${homeSVG}</button>
+      <button id="nav-category" class="nav-btn${active==="category"?" active":""}" title="Kategoriyalar">${catSVG}</button>
+      <button id="nav-favorites" class="nav-btn${active==="favorites"?" active":""}" title="Sevimlilar">${heartSVG}</button>
+      <button id="nav-cart" class="nav-btn${active==="cart"?" active":""}" title="Savat">${cartSVG}<span id="cart-badge"${cart.length ? ' style="display:flex"' : ''}>${cart.length || ""}</span></button>
+    </nav>
+  `;
+}
+function setNavbarEvents() {
+  document.getElementById("nav-home")?.addEventListener("click", function() { setActive(this); page="home"; renderHome(); });
+  document.getElementById("nav-category")?.addEventListener("click", function() { setActive(this); page="category"; renderCategory(); });
+  document.getElementById("nav-favorites")?.addEventListener("click", function() { setActive(this); page="favorites"; renderFavorites(); });
+  document.getElementById("nav-cart")?.addEventListener("click", function() { setActive(this); page="cart"; renderCart(); });
+}
 function setActive(btn) {
   document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));
   btn.classList.add("active");
@@ -86,8 +104,10 @@ function renderHome() {
       ${banners.map((src,i)=>`<div class="banner${i===0?" active":""}"><img src="${src}"></div>`).join("")}
     </div>
     <div class="product-grid">${products.map(productCardHTML).join("")}</div>
+    ${renderNavbar("home")}
   `;
   products.forEach((p,i) => setupCardCarousel(p,i));
+  setNavbarEvents();
 }
 function productCardHTML(p, idx) {
   const disc = calcDiscount(p);
@@ -127,18 +147,18 @@ function productCardHTML(p, idx) {
 // Kartochkadagi yurak va savat uchun faqat sahifani yangilash
 window.toggleFavCard = function(pid) {
   if(favs.includes(pid)) favs = favs.filter(id=>id!==pid); else favs.push(pid);
-  if (page === "home") renderHome();
-  else if (page === "favorites") renderFavorites();
-  else if (page === "category") renderCategory();
-  else if (page === "cart") renderCart();
+  refreshPage();
 };
 window.addToCartCard = function(pid) {
   if(!cart.includes(pid)) cart.push(pid);
+  refreshPage();
+};
+function refreshPage() {
   if (page === "home") renderHome();
   else if (page === "favorites") renderFavorites();
   else if (page === "category") renderCategory();
   else if (page === "cart") renderCart();
-};
+}
 
 // MODAL/PRODUCT sahifa uchun - eski funksiya: modalni qayta ochish
 window.toggleFav = function(pid) {
@@ -154,6 +174,7 @@ window.addToCart = function(pid) {
 function setupCardCarousel(p, idx) {
   let cidx = 0;
   const card = document.querySelectorAll(".product-card")[idx];
+  if (!card) return;
   const carouselDiv = card.querySelector(".product-img-carousel");
   const img = carouselDiv.querySelector("img");
   const leftBtn = carouselDiv.querySelector(".carousel-arrow.left");
@@ -198,10 +219,12 @@ window.openProduct = function(pid) {
         <button class="cart-btn${isInCart ? " disabled" : ""}" onclick="${!isInCart ? `addToCart(${p.id})` : ""}" ${isInCart ? "disabled" : ""}>🛒 Savatga</button>
       </div>
     </div>
+    ${renderNavbar("home")}
     <div id="buy-sheet-root"></div>
   `;
   setupModalCarousel(p);
-}
+  setNavbarEvents();
+};
 function productModalCarousel(p) {
   return `
     <div class="product-img-carousel" style="margin:0 auto;max-width:340px;">
@@ -266,28 +289,38 @@ function renderCategory() {
         </div>
       `).join("")}
     </div>
+    ${renderNavbar("category")}
   `;
+  setNavbarEvents();
 }
 window.showCategory = function(cid) {
   document.getElementById("header").innerHTML = `<button class="back-btn" onclick="renderCategory()">&larr;</button> ${categories.find(c=>c.id===cid).name}`;
   document.getElementById("main").innerHTML = `
     <div class="product-grid">${products.filter(p=>p.category===cid).map(productCardHTML).join("")}</div>
+    ${renderNavbar("category")}
   `;
   products.filter(p=>p.category===cid).forEach((p,i) => setupCardCarousel(p,i));
+  setNavbarEvents();
 }
 function renderFavorites() {
   document.getElementById("header").style.display = "flex";
   document.getElementById("header").innerHTML = `<button class="back-btn" onclick="renderHome()">&larr;</button> Sevimlilar`;
-  document.getElementById("main").innerHTML = `<div class="product-grid">${products.filter(p=>favs.includes(p.id)).map(productCardHTML).join("")}</div>`;
+  document.getElementById("main").innerHTML = `
+    <div class="product-grid">${products.filter(p=>favs.includes(p.id)).map(productCardHTML).join("")}</div>
+    ${renderNavbar("favorites")}
+  `;
   products.filter(p=>favs.includes(p.id)).forEach((p,i) => setupCardCarousel(p,i));
+  setNavbarEvents();
 }
 function renderCart() {
   document.getElementById("header").style.display = "flex";
   document.getElementById("header").innerHTML = `<button class="back-btn" onclick="renderHome()">&larr;</button> Savat`;
   const cartItems = products.filter(p=>cart.includes(p.id));
-  document.getElementById("main").innerHTML = cartItems.length 
+  document.getElementById("main").innerHTML = (cartItems.length 
     ? `<div class="product-grid">${cartItems.map(productCardHTML).join("")}</div>`
-    : `<div style="padding:18px">Savat bo'sh.</div>`;
+    : `<div style="padding:18px">Savat bo'sh.</div>`)
+    + renderNavbar("cart");
   cartItems.forEach((p,i) => setupCardCarousel(p,i));
+  setNavbarEvents();
 }
-renderHome();       
+renderHome();
