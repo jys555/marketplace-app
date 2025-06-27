@@ -59,18 +59,21 @@ let page = "home";
 let currentProductId = null;
 
 // --- NAVBAR ICONS (SVG) ---
+// YANGI kod (Yandex Market uslubidagi SVG’lar)
 
-const homeSVG = `<svg class="nav-ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-  <path d="M4 10v9a1 1 0 0 0 1 1h4v-5h2v5h4a1 1 0 0 0 1-1v-9M4 10L12 4l8 6"/>
+const homeSVG = `<svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+  <path d="M3 10.8L12 4L21 10.8V20A1 1 0 0 1 20 21H16A1 1 0 0 1 15 20V16A1 1 0 0 0 14 15H10A1 1 0 0 0 9 16V20A1 1 0 0 1 8 21H4A1 1 0 0 1 3 20V10.8Z" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`;
 const catSVG = `<svg class="nav-ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
   <rect x="3" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/>
 </svg>`;
-const heartSVG = `<svg class="nav-ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-  <path d="M12 21s-7-4.35-7-10a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 5.65-7 10-7 10z"/>
+const heartSVG = `<svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+  <path d="M12 21C12 21 4 16.65 4 11C4 7.68629 6.68629 5 10 5C11.6569 5 13 6.34315 13 8C13 6.34315 14.3431 5 16 5C19.3137 5 22 7.68629 22 11C22 16.65 12 21 12 21Z" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`;
-const cartSVG = `<svg class="nav-ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-  <path d="M6 6h15l-1 10H7L6 6z"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/>
+const cartSVG = `<svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+  <circle cx="8.5" cy="20" r="1.5" fill="currentColor"/>
+  <circle cx="17.5" cy="20" r="1.5" fill="currentColor"/>
+  <path d="M5 6H21L19 16H7L5 6Z" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`;
 
 // --- HELPERS ---
