@@ -68,14 +68,13 @@ const catSVG = `<svg class="nav-ico" fill="none" stroke="currentColor" stroke-wi
   <rect x="3" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/>
 </svg>`;
 const heartSVG = `<svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-  <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-        d="M12 20.5s-5.5-4.25-7.5-7.5C2.5 9 4.5 5.5 8 5.5c1.5 0 2.5 1 3.2 2
-         .7-1 1.7-2 3.3-2 3.5 0 5.5 3.5 3.5 7.5-2 3.25-7.5 7.5-7.5 7.5z"/>
+  <path d="M12 21s-6.5-5.2-8.5-8.1C1.5 9.4 3.5 6 7 6c1.7 0 3 1.2 3 3 0-1.8 1.3-3 3-3 3.5 0 5.5 3.4 3.5 6.9C18.5 15.8 12 21 12 21z" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`;
 
 const cartSVG = `<svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-  <path d="M7.5 10.5L6 17a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1l-1.5-6.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <path d="M9 10.5V8a3 3 0 1 1 6 0v2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="9" cy="21" r="1"/>
+  <circle cx="20" cy="21" r="1"/>
+  <path d="M1 1h4l2.68 13.39A2 2 0 0 0 9.62 17h7.76a2 2 0 0 0 1.94-1.61L23 6H6"/>
 </svg>`;
 
 // --- HELPERS ---
