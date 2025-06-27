@@ -38,11 +38,15 @@ header { height:46px; display:flex; align-items:center; font-size:1.18em; font-w
 }
 
 .bottom-nav .nav-btn .nav-ico {
-  width: 32px;    /* Yandexnikiga yaqin */
+  width: 32px;
   height: 32px;
   display: block;
   stroke: #888;
   margin-bottom: 2px;
+  box-sizing: content-box;
+  overflow: visible;
+  vertical-align: middle;
+  flex-shrink: 0;
 }
 
 #cart-badge {
