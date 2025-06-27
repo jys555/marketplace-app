@@ -86,7 +86,10 @@ function renderNavbar(active) {
       <button id="nav-home" class="nav-btn${active==="home"?" active":""}" title="Bosh sahifa">${homeSVG}</button>
       <button id="nav-category" class="nav-btn${active==="category"?" active":""}" title="Kategoriyalar">${catSVG}</button>
       <button id="nav-favorites" class="nav-btn${active==="favorites"?" active":""}" title="Sevimlilar">${heartSVG}</button>
-      <button id="nav-cart" class="nav-btn${active==="cart"?" active":""}" title="Savat">${cartSVG}<span id="cart-badge"${cart.length ? ' style="display:flex"' : ''}>${cart.length || ""}</span></button>
+      <button id="nav-cart" class="nav-btn${active==="cart"?" active":""}" title="Savat">
+        ${cartSVG}
+        ${cart.length ? `<span id="cart-badge">${cart.length}</span>` : ""}
+      </button>
     </nav>
   `;
 }
