@@ -210,11 +210,15 @@ header { height:46px; display:flex; align-items:center; font-size:1.18em; font-w
 /* ------ MODAL / PRODUCT SAHIFA ------ */
 .full-modal {
   position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 56px); /* pastki navbarga joy qoldirilgan */
   background: #fff;
   z-index: 9999;
   overflow-y: auto;
-  display: flex; flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 .full-modal .modal-header {
   height: 46px;
