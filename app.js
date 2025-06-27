@@ -1,24 +1,3 @@
-window.addEventListener('hashchange', renderPageByHash);
-window.addEventListener('DOMContentLoaded', renderPageByHash);
-
-function renderPageByHash() {
-  const hash = window.location.hash;
-  if (hash === '#cart') {
-    showCartPage();
-  } else if (hash === '#favorites') {
-    showFavoritesPage();
-  } else if (hash.startsWith('#product/')) {
-    const id = hash.split('/')[1];
-    showProductPage(id);
-  } else {
-    showHomePage();
-  }
-}
-
-// Boshqa sahifaga o‘tishda
-function goToCartPage() {
-  window.location.hash = '#cart';
-}
 // DEMO DATA
 const banners = [
   "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80",
