@@ -346,4 +346,14 @@ function renderCart() {
   cartItems.forEach((p,i) => setupCardCarousel(p,i));
   setNavbarEvents();
 }
-renderHome();
+function renderPageByHash() {
+  const hash = window.location.hash.replace('#', '') || 'home';
+  if (hash === "home") renderHome();
+  else if (hash === "favorites") renderFavorites();
+  else if (hash === "category") renderCategory();
+  else if (hash === "cart") renderCart();
+}
+//renderHome();  // eski kod, olib tashlanadi
+// yangi kod:
+window.addEventListener("hashchange", renderPageByHash);
+window.addEventListener("DOMContentLoaded", renderPageByHash);
