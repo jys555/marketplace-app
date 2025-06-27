@@ -341,4 +341,25 @@ function renderCart() {
   cartItems.forEach((p,i) => setupCardCarousel(p,i));
   setNavbarEvents();
 }
+
+// Saqlash (masalan, foydalanuvchi yangi sevimli qo‘shganda)
+function saveFavorites(favsArray) {
+  localStorage.setItem('favorites', JSON.stringify(favsArray));
+}
+
+// O‘qish (sahifa yuklanganda)
+function loadFavorites() {
+  let favs = localStorage.getItem('favorites');
+  return favs ? JSON.parse(favs) : [];
+}
+// Saqlash
+function saveCart(cartArray) {
+  localStorage.setItem('cart', JSON.stringify(cartArray));
+}
+
+// O‘qish
+function loadCart() {
+  let cart = localStorage.getItem('cart');
+  return cart ? JSON.parse(cart) : [];
+}
 renderHome();
