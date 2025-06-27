@@ -9,8 +9,35 @@
 <body>
   <header id="header"></header>
   <main id="main"></main>
-  <!-- PASTKI NAVBARNI HTML DAN OLIB TASHLANG! 
-       Uni app.js har bir sahifa va modalga dinamik tarzda qo'shadi -->
+  <!-- Pastki navbar doim DOMda, <main> tashqarisida -->
+  <nav class="bottom-nav">
+    <button class="nav-btn active" title="Bosh sahifa">
+      <svg class="nav-ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M4 10v9a1 1 0 0 0 1 1h4v-5h2v5h4a1 1 0 0 0 1-1v-9M4 10L12 4l8 6"/>
+      </svg>
+    </button>
+    <button class="nav-btn" title="Kategoriyalar">
+      <svg class="nav-ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="7" height="7" rx="2"/>
+        <rect x="3" y="14" width="7" height="7" rx="2"/>
+        <rect x="14" y="3" width="7" height="7" rx="2"/>
+        <rect x="14" y="14" width="7" height="7" rx="2"/>
+      </svg>
+    </button>
+    <button class="nav-btn" title="Sevimlilar">
+      <svg class="nav-ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M12 21s-7-4.35-7-10a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 5.65-7 10-7 10z"/>
+      </svg>
+    </button>
+    <button class="nav-btn" title="Savat">
+      <svg class="nav-ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M6 6h15l-1 10H7L6 6z"/>
+        <circle cx="9" cy="20" r="1"/>
+        <circle cx="18" cy="20" r="1"/>
+      </svg>
+      <span id="cart-badge">3</span>
+    </button>
+  </nav>
   <script src="app.js"></script>
 </body>
 </html>
