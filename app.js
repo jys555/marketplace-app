@@ -1,26 +1,3 @@
-// 1. Sahifa yuklanganda localStorage-dan ma'lumotlarni tiklash:
-let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-
-// 2. Sevimlilarni o‘zgartirganda (masalan, yurak bosilganda):
-function toggleFavorite(productId) {
-  if (favorites.includes(productId)) {
-    favorites = favorites.filter(id => id !== productId);
-  } else {
-    favorites.push(productId);
-  }
-  localStorage.setItem('favorites', JSON.stringify(favorites));
-  // UI yangilansin
-}
-
-// 3. Savatni o‘zgartirganda:
-function addToCart(productId) {
-  if (!cart.includes(productId)) {
-    cart.push(productId);
-    localStorage.setItem('cart', JSON.stringify(cart));
-    // UI yangilansin
-  }
-}
 // DEMO DATA
 const banners = [
   "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80",
