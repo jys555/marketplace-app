@@ -68,13 +68,15 @@ const catSVG = `<svg class="nav-ico" fill="none" stroke="currentColor" stroke-wi
   <rect x="3" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/>
 </svg>`;
 const heartSVG = `<svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-  <path d="M12 20.7l-1.45-1.32C6.4 15.36 4 13.28 4 10.5 4 8.5 5.5 7 7.5 7c1.11 0 2.22.59 2.87 1.53C11.28 7.59 12.39 7 13.5 7 15.5 7 17 8.5 17 10.5c0 2.78-2.4 4.86-6.55 8.88L12 20.7z" stroke="currentColor" stroke-width="2" fill="none"/>
+  <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        d="M12 20.5s-5.5-4.25-7.5-7.5C2.5 9 4.5 5.5 8 5.5c1.5 0 2.5 1 3.2 2
+         .7-1 1.7-2 3.3-2 3.5 0 5.5 3.5 3.5 7.5-2 3.25-7.5 7.5-7.5 7.5z"/>
 </svg>`;
+
 const cartSVG = `<svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-  <rect x="7" y="8" width="10" height="6" rx="1" stroke="currentColor" stroke-width="2" fill="none"/>
-  <path d="M9 14l1 3h4l1-3" stroke="currentColor" stroke-width="2" fill="none"/>
-  <path d="M9 14h6" stroke="currentColor" stroke-width="2" fill="none"/>
-</svg>`; 
+  <path d="M7.5 10.5L6 17a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1l-1.5-6.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M9 10.5V8a3 3 0 1 1 6 0v2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>`;
 
 // --- HELPERS ---
 function calcDiscount(p) {
