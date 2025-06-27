@@ -68,7 +68,9 @@ const catSVG = `<svg class="nav-ico" fill="none" stroke="currentColor" stroke-wi
   <rect x="3" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/>
 </svg>`;
 const heartSVG = `<svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-  <path d="M12 21s-6.5-5.2-8.5-8.1C1.5 9.4 3.5 6 7 6c1.7 0 3 1.2 3 3 0-1.8 1.3-3 3-3 3.5 0 5.5 3.4 3.5 6.9C18.5 15.8 12 21 12 21z" stroke-linecap="round" stroke-linejoin="round"/>
+  <path stroke-linecap="round" stroke-linejoin="round"
+    d="M12 21C12 21 5 13.36 5 8.86C5 6.17 7.24 4 9.99 4C11.37 4 12.61 4.71 13.34 5.77C14.08 4.71 15.32 4 16.7 4C19.45 4 21.69 6.17 21.69 8.86C21.69 13.36 12 21 12 21Z"
+  />
 </svg>`;
 
 const cartSVG = `<svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
