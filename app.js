@@ -53,8 +53,8 @@ const products = [
   }
 ];
 // STATE
-let favs = [];
-let cart = [];
+let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+let cart = JSON.parse(localStorage.getItem('cart') || '[]');
 let page = "home";
 let currentProductId = null;
 
@@ -100,10 +100,10 @@ function renderNavbar(active) {
   `;
 }
 function setNavbarEvents() {
-  document.getElementById("nav-home")?.addEventListener("click", function() { setActive(this); page="home"; renderHome(); });
-  document.getElementById("nav-category")?.addEventListener("click", function() { setActive(this); page="category"; renderCategory(); });
-  document.getElementById("nav-favorites")?.addEventListener("click", function() { setActive(this); page="favorites"; renderFavorites(); });
-  document.getElementById("nav-cart")?.addEventListener("click", function() { setActive(this); page="cart"; renderCart(); });
+  document.getElementById("nav-home")?.addEventListener("click", function() { setActive(this); window.location.hash="home"; });
+  document.getElementById("nav-category")?.addEventListener("click", function() { setActive(this); window.location.hash="category"; });
+  document.getElementById("nav-favorites")?.addEventListener("click", function() { setActive(this); window.location.hash="favorites"; });
+  document.getElementById("nav-cart")?.addEventListener("click", function() { setActive(this); window.location.hash="cart"; });
 }
 function setActive(btn) {
   document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));
@@ -164,11 +164,14 @@ function productCardHTML(p, idx) {
 
 // Kartochkadagi yurak va savat uchun faqat sahifani yangilash
 window.toggleFavCard = function(pid) {
-  if(favs.includes(pid)) favs = favs.filter(id=>id!==pid); else favs.push(pid);
+  if (favs.includes(pid)) favs = favs.filter(id => id !== pid);
+  else favs.push(pid);
+  localStorage.setItem('favorites', JSON.stringify(favs)); // <-- Qo‘shildi
   refreshPage();
 };
 window.addToCartCard = function(pid) {
-  if(!cart.includes(pid)) cart.push(pid);
+  if (!cart.includes(pid)) cart.push(pid);
+  localStorage.setItem('cart', JSON.stringify(cart)); // <-- Qo‘shildi
   refreshPage();
 };
 function refreshPage() {
@@ -178,16 +181,18 @@ function refreshPage() {
   else if (page === "cart") renderCart();
 }
 
-// MODAL/PRODUCT sahifa uchun - eski funksiya: modalni qayta ochish
+// MODAL/PRODUCT sahifa uchun - yangi funksiya: modalni qayta ochish
 window.toggleFav = function(pid) {
-  if(favs.includes(pid)) favs = favs.filter(id=>id!==pid); else favs.push(pid);
+  if (favs.includes(pid)) favs = favs.filter(id => id !== pid);
+  else favs.push(pid);
+  localStorage.setItem('favorites', JSON.stringify(favs)); // <-- Qo‘shildi
   openProduct(pid);
 };
 window.addToCart = function(pid) {
-  if(!cart.includes(pid)) cart.push(pid);
+  if (!cart.includes(pid)) cart.push(pid);
+  localStorage.setItem('cart', JSON.stringify(cart)); // <-- Qo‘shildi
   openProduct(pid);
 };
-
 // Carousel setup
 function setupCardCarousel(p, idx) {
   let cidx = 0;
