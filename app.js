@@ -1,13 +1,13 @@
 // FIREBASE konfiguratsiyasi va boshlanishi
 const firebaseConfig = {
-  apiKey: "AIzaSyBkximOtVpArX88209OIKT3oAlmz1rQfLU",
-  authDomain: "marketplace-app-74766.firebaseapp.com",
-  projectId: "marketplace-app-74766",
-  storageBucket: "marketplace-app-74766.firebasestorage.app",
-  messagingSenderId: "102546946061",
-  appId: "1:102546946061:web:921065b640d0784747bd44",
-  measurementId: "G-2RRBZ5EH3K"
-};
+    apiKey: "AIzaSyBkximOtVpArX88209OIKT3oAlmz1rQfLU",
+    authDomain: "marketplace-app-74766.firebaseapp.com",
+    projectId: "marketplace-app-74766",
+    storageBucket: "marketplace-app-74766.firebasestorage.app",
+    messagingSenderId: "102546946061",
+    appId: "1:102546946061:web:8a05fef821eb15d847bd44",
+    measurementId: "G-E7STM0QHMQ"
+  };
 firebase.initializeApp(firebaseConfig);
 if (typeof firebase.analytics === "function") {
   firebase.analytics();
