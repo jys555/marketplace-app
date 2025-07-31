@@ -94,8 +94,6 @@ const products = [
   }
 ];
 // STATE
-let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
-let cart = JSON.parse(localStorage.getItem('cart') || '[]');
 let page = "home";
 let currentProductId = null;
 
