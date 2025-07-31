@@ -1,6 +1,6 @@
 // Kod boshida
 const userId = window.Telegram.WebApp.initDataUnsafe.user.id.toString();
-
+// ma'lumotlarni o'qish
 let favs = [];
 let cart = [];
 
@@ -14,6 +14,13 @@ async function loadUserData() {
     cart = [];
   }
   renderPageByHash(); // eski renderHome emas!
+}
+// firestorega ma'lumotlarni saqlash
+async function saveUserData() {
+  await db.collection('users').doc(userId).set({
+    favorites: favs,
+    cart: cart
+  }, { merge: true });
 }
 
 // FIREBASE konfiguratsiyasi va boshlanishi
