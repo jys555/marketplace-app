@@ -394,5 +394,5 @@ function renderPageByHash() {
 }
 //renderHome();  // eski kod, olib tashlanadi
 // yangi kod:
+window.addEventListener("DOMContentLoaded", loadUserData);
 window.addEventListener("hashchange", renderPageByHash);
-window.addEventListener("DOMContentLoaded", renderPageByHash);
