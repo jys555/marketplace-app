@@ -202,13 +202,13 @@ function productCardHTML(p, idx) {
 }
 
 // Kartochkadagi yurak va savat uchun faqat sahifani yangilash
-window.toggleFavCard = function(pid) {
+window.toggleFavCard = async function(pid) {
   if (favs.includes(pid)) favs = favs.filter(id => id !== pid);
   else favs.push(pid);
- await saveUserData(); // <-- Qo‘shildi
+  await saveUserData();
   refreshPage();
 };
-window.addToCartCard = function(pid) {
+window.addToCartCard = async function(pid) {
   if (!cart.includes(pid)) cart.push(pid);
  await saveUserData(); // <-- Qo‘shildi
   refreshPage();
@@ -221,13 +221,13 @@ function refreshPage() {
 }
 
 // MODAL/PRODUCT sahifa uchun - yangi funksiya: modalni qayta ochish
-window.toggleFav = function(pid) {
+window.toggleFav = async function(pid) {
   if (favs.includes(pid)) favs = favs.filter(id => id !== pid);
   else favs.push(pid);
   await saveUserData(); // <-- Qo‘shildi
   openProduct(pid);
 };
-window.addToCart = function(pid) {
+window.addToCart = async function(pid) {
   if (!cart.includes(pid)) cart.push(pid);
   await saveUserData(); // <-- Qo‘shildi
   openProduct(pid);
