@@ -207,12 +207,12 @@ function productCardHTML(p, idx) {
 window.toggleFavCard = function(pid) {
   if (favs.includes(pid)) favs = favs.filter(id => id !== pid);
   else favs.push(pid);
-  localStorage.setItem('favorites', JSON.stringify(favs)); // <-- Qo‘shildi
+ await saveUserData(); // <-- Qo‘shildi
   refreshPage();
 };
 window.addToCartCard = function(pid) {
   if (!cart.includes(pid)) cart.push(pid);
-  localStorage.setItem('cart', JSON.stringify(cart)); // <-- Qo‘shildi
+ await saveUserData(); // <-- Qo‘shildi
   refreshPage();
 };
 function refreshPage() {
@@ -226,12 +226,12 @@ function refreshPage() {
 window.toggleFav = function(pid) {
   if (favs.includes(pid)) favs = favs.filter(id => id !== pid);
   else favs.push(pid);
-  localStorage.setItem('favorites', JSON.stringify(favs)); // <-- Qo‘shildi
+  await saveUserData(); // <-- Qo‘shildi
   openProduct(pid);
 };
 window.addToCart = function(pid) {
   if (!cart.includes(pid)) cart.push(pid);
-  localStorage.setItem('cart', JSON.stringify(cart)); // <-- Qo‘shildi
+  await saveUserData(); // <-- Qo‘shildi
   openProduct(pid);
 };
 // Carousel setup
