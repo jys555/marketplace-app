@@ -1,3 +1,5 @@
+// Kod boshida
+const userId = window.Telegram.WebApp.initDataUnsafe.user.id.toString();
 // FIREBASE konfiguratsiyasi va boshlanishi
 const firebaseConfig = {
     apiKey: "AIzaSyBkximOtVpArX88209OIKT3oAlmz1rQfLU",
