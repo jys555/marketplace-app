@@ -1,3 +1,16 @@
+if (
+    window.Telegram &&
+    window.Telegram.WebApp &&
+    window.Telegram.WebApp.initDataUnsafe &&
+    window.Telegram.WebApp.initDataUnsafe.user
+) {
+    // Hammasi joyida, kod pastda davom etadi
+
+    const userId = window.Telegram.WebApp.initDataUnsafe.user.id.toString();
+
+    // ...Sizning butun app.js kodingiz shu yerdan boshlanadi...
+    // (bu joyga hozirga kodlaringizni joylashtiring)
+  
 // Kod boshida
 const userId = window.Telegram.WebApp.initDataUnsafe.user.id.toString();
 // ma'lumotlarni o'qish
@@ -396,3 +409,8 @@ function renderPageByHash() {
 // yangi kod:
 window.addEventListener("DOMContentLoaded", loadUserData);
 window.addEventListener("hashchange", renderPageByHash);
+
+} else {
+    document.body.innerHTML = "<h2 style='color:red; text-align:center;'>❗ Telegram WebApp konteksti mavjud emas yoki user.id aniqlanmadi.<br><br>Mini-app faqat Telegram ilovasida tugma orqali ochiladi.</h2>";
+}
+
