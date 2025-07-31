@@ -1,5 +1,21 @@
 // Kod boshida
 const userId = window.Telegram.WebApp.initDataUnsafe.user.id.toString();
+
+let favs = [];
+let cart = [];
+
+async function loadUserData() {
+  const doc = await db.collection('users').doc(userId).get();
+  if (doc.exists) {
+    favs = doc.data().favorites || [];
+    cart = doc.data().cart || [];
+  } else {
+    favs = [];
+    cart = [];
+  }
+  renderPageByHash(); // eski renderHome emas!
+}
+
 // FIREBASE konfiguratsiyasi va boshlanishi
 const firebaseConfig = {
     apiKey: "AIzaSyBkximOtVpArX88209OIKT3oAlmz1rQfLU",
