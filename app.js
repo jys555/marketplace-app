@@ -4,9 +4,6 @@ if (
     window.Telegram.WebApp.initDataUnsafe &&
     window.Telegram.WebApp.initDataUnsafe.user
 ) {
-    // Hammasi joyida, kod pastda davom etadi
-
-    const userId = window.Telegram.WebApp.initDataUnsafe.user.id.toString();
 
     // ...Sizning butun app.js kodingiz shu yerdan boshlanadi...
     // (bu joyga hozirga kodlaringizni joylashtiring)
@@ -41,7 +38,7 @@ const firebaseConfig = {
     apiKey: "AIzaSyBkximOtVpArX88209OIKT3oAlmz1rQfLU",
     authDomain: "marketplace-app-74766.firebaseapp.com",
     projectId: "marketplace-app-74766",
-    storageBucket: "marketplace-app-74766.firebasestorage.app",
+    storageBucket: "marketplace-app-74766.appspot.com",
     messagingSenderId: "102546946061",
     appId: "1:102546946061:web:8a05fef821eb15d847bd44",
     measurementId: "G-E7STM0QHMQ"
